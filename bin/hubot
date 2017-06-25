@@ -1,0 +1,64 @@
+#!/bin/bash
+
+ARG1=$1
+
+if [ "${ARG1}" = "" ]; then
+  echo "missing param. hubot (start|stop|restart|status). Please again."
+  exit 1;
+fi
+
+abs_dirname() {
+  local cwd="$(pwd)"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}"
+    local name="${path##*/}"
+    path="$(readlink "$name" || true)"
+  done
+
+  pwd -P
+  cd "$cwd"
+}
+
+set -e
+
+SCRIPT_DIR="$(abs_dirname "$0")"
+
+source ${SCRIPT_DIR}/../env/local.env
+
+cd ${HUBOT_HOME}
+
+if [ ! -d ${HUBOT_HOME}/log ]; then
+  mkdir ${HUBOT_HOME}/log
+fi
+
+start() {
+  npm install
+  export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
+  exec forever start -l ${HUBOT_HOME}/log/hubot.log -a --spinSleepTime 200000 -c coffee node_modules/.bin/hubot -a slack --name "alice"
+}
+stop () {
+  forever stop -c coffee node_modules/.bin/hubot
+}
+restart() {
+  forever restartall
+}
+status() {
+  forever list
+}
+
+case "$ARG1" in
+  "stop" )
+    stop
+    ;;
+  "restart" )
+    restart
+    ;;
+  "start" )
+    start
+    ;;
+  "status" )
+    status
+    ;;
+esac

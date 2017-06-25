@@ -1,0 +1,15 @@
+[Unit]
+Description=alice - slack bot daemon
+
+[Service]
+ExecStart=/home/alice/hubot/bin/hubot start
+ExecStop=/home/alice/hubot/bin/hubot stop
+ExecReload=/home/alice/hubot/bin/hubot restart
+Restart=always
+Type=forking
+User=alice
+Group=alice
+
+[Install]
+WantedBy=multi-user.target
+
