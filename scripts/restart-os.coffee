@@ -7,6 +7,9 @@
 # Configuration:
 #   None
 #
+# Commands:
+#   hubot restart os - Restart OS.
+#
 # Author:
 # 
 

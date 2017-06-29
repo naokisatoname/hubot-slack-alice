@@ -7,6 +7,9 @@
 # Configuration:
 #   None
 #
+# Commands:
+#   hubot update os - Performs apt-get update && apt-get upgrade.
+#
 # Author:
 # 
 

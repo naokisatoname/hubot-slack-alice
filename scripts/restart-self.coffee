@@ -7,6 +7,9 @@
 # Configuration:
 #   None
 #
+# Commands:
+#   hubot restart (self) - Restart hubot service.
+#
 # Author:
 # 
 

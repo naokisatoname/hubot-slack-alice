@@ -8,7 +8,7 @@
 #   None
 #
 # Commands:
-#   hubot update - Performs a git pull and npm udate.
+#   hubot update (self) - Performs a git pull and npm udate.
 #
 # Author:
 # 
